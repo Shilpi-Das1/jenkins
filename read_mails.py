@@ -3,6 +3,7 @@ import imaplib
 import re
 import datetime as dt
 from datetime import timedelta
+import os
 
 dates = (dt.datetime.now() - timedelta(days = 3)).strftime("%d-%b-%Y")
 
@@ -63,7 +64,7 @@ for msg in msgs[::-1]:
                 indexend = data2.find("From:")
                 
                 if re.search("advisories and nightlies", data2[0: indexend].strip()):
-                    print("outter: ",data2[0: indexend].strip())
+                    #print("outter: ",data2[0: indexend].strip())
                     indexstart = data.find("ltr")
                     clean_data = re.sub('<[^<]+?>', '', data[indexstart + 5: len(data)])
 
@@ -93,6 +94,7 @@ for msg in msgs[::-1]:
                             print("\nNightlies:")
                         if re.search("ppc64le:", builds):
                             print("ppc64le: ", builds[builds.find("ppc64le:")+9:].strip()) # build
+                            os.environ["DEBUSSY"] = builds[builds.find("ppc64le:")+9:].strip()
                         if re.search("s390x:", builds):
                             print("s390x: ", builds[builds.find(":")+1:].strip()) 
                         if re.search("x86_64:", builds):
