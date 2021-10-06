@@ -94,7 +94,8 @@ for msg in msgs[::-1]:
                             print("\nNightlies:")
                         if re.search("ppc64le:", builds):
                             print("ppc64le: ", builds[builds.find("ppc64le:")+9:].strip()) # build
-                            os.environ["NIGHTLY_Z_VARAD"] = builds[builds.find("ppc64le:")+9:].strip()
+                            #os.environ["NIGHTLY_Z_VARAD"] = builds[builds.find("ppc64le:")+9:].strip()
+                            print("export NIGHTLY_Z_VARAD=%s" % (builds[builds.find("ppc64le:")+9:].strip()))
                         if re.search("s390x:", builds):
                             print("s390x: ", builds[builds.find(":")+1:].strip()) 
                         if re.search("x86_64:", builds):
