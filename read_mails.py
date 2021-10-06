@@ -3,11 +3,13 @@ import imaplib
 import re
 import datetime as dt
 from datetime import timedelta
+import sys
+
 
 dates = (dt.datetime.now() - timedelta(days = 1)).strftime("%d-%b-%Y")
 
 user = 'varad.ahirwadkar368@gmail.com'
-password = 'zglvbyahjkinjycs'
+password = sys.argv[1]
 imap_url = 'imap.gmail.com'
 
 # Function to get email content part i.e its body part
