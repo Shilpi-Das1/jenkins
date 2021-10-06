@@ -1,10 +1,9 @@
 pipeline {
     agent any
-
-    stages {
-        stage('Hello') {
+    stages { 
+        stage('Example') {
             steps {
-                echo env.NIGHTLY_Z_VARAD
+                echo 'Hello ${name}'
             }
         }
     }
