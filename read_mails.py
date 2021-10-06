@@ -99,7 +99,7 @@ for msg in msgs[::-1]:
                             if build_no is not None:
                                 print("build no: ", build_no.group()[1:])
                                 with open("build_no.sh","w") as f:
-                                    f.write("#!\\bin\sh\nexport NIGHTLY_Z_VARAD="+build_no.group()[1:])
+                                    f.write("#!/bin/bash\nexport NIGHTLY_Z_VARAD="+build_no.group()[1:]+"\n")
                                     f.close()
                                 #print("export NIGHTLY_Z_VARAD=%s" % (pipes.quote(str(build_no.group()[1:]))))
                         if re.search("s390x:", builds):
