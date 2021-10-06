@@ -3,9 +3,8 @@ import imaplib
 import re
 import datetime as dt
 from datetime import timedelta
-import os
 
-dates = (dt.datetime.now() - timedelta(days = 3)).strftime("%d-%b-%Y")
+dates = (dt.datetime.now() - timedelta(days = 1)).strftime("%d-%b-%Y")
 
 user = 'varad.ahirwadkar368@gmail.com'
 password = 'zglvbyahjkinjycs'
@@ -94,8 +93,15 @@ for msg in msgs[::-1]:
                             print("\nNightlies:")
                         if re.search("ppc64le:", builds):
                             print("ppc64le: ", builds[builds.find("ppc64le:")+9:].strip()) # build
-                            #os.environ["NIGHTLY_Z_VARAD"] = builds[builds.find("ppc64le:")+9:].strip()
-                            print("export NIGHTLY_Z_VARAD=%s" % (builds[builds.find("ppc64le:")+9:].strip()))
+                            print("ppc64le: ", builds[builds.find("release-ppc64le:")+16:].strip())
+                            build_no= re.search(":[0-9.]+",builds[builds.find("ppc64le:")+9:].strip())
+                            
+                            if build_no is not None:
+                                print("build no: ", build_no.group()[1:])
+                                with open("build_no.sh","w") as f:
+                                    f.write("#!\\bin\sh\nexport NIGHTLY_Z_VARAD="+build_no.group()[1:])
+                                    f.close()
+                                #print("export NIGHTLY_Z_VARAD=%s" % (pipes.quote(str(build_no.group()[1:]))))
                         if re.search("s390x:", builds):
                             print("s390x: ", builds[builds.find(":")+1:].strip()) 
                         if re.search("x86_64:", builds):
